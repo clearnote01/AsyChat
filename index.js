@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
   });
 });
 
-server.listen(5000, function() {
+server.listen(app.get('port'), function() {
   console.log('Created a server at port 5000');
 });
 
