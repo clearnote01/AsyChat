@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head section for html, meta, css links, fonts -->
+<head>
+  <meta charset="UTF-8">
+  <title>AsynChat</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" 
+  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+
+<body>
+
+   <nav>
+    <!-- Navigation bar (top) -->
+    <div class="nav-wrapper red accent-3">
+      <!--<a href="#" class="brand-logo">AsynChat</a>-->
+      <span class="brand-logo">AsynChat</span>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!--<nav>-->
+    <!--<div class="nav-wrapper">-->
+      <!--<a href="#!" class="brand-logo">Logo</a>-->
+      <!--<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>-->
+      <!--<ul class="right hide-on-med-and-down">-->
+        <!--<li><a href="sass.html">Sass</a></li>-->
+        <!--<li><a href="badges.html">Components</a></li>-->
+        <!--<li><a href="collapsible.html">Javascript</a></li>-->
+        <!--<li><a href="mobile.html">Mobile</a></li>-->
+      <!--</ul>-->
+      <!--<ul class="side-nav" id="mobile-demo">-->
+        <!--<li><a href="sass.html">Sass</a></li>-->
+        <!--<li><a href="badges.html">Components</a></li>-->
+        <!--<li><a href="collapsible.html">Javascript</a></li>-->
+        <!--<li><a href="mobile.html">Mobile</a></li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</nav>-->
+
+  <div class="section">
+    <div class="deep-purple">
+      <div class="container ">
+      <!-- Center the page? not essential imo -->
+        <h2><span id='main' class="blue-text text-lighten-4">This is a cool application.</span></h2>
+        <h3>With a great font.</h3>
+        <h4>Hello world</h4>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="blue lighten-3 col l3 m3 z-depth-1">
+      <!-- Navigation bar (left) -->
+      Nav bar
+      <div class="divider"></div>
+      is here.
+      all of 
+      the stuffs
+      are here
+    </div>
+    <div class="col l9 m9">
+      <div class="container">
+        <div class="row">
+          <div class="col s6 green"><span class="flow-text">Hello</span></div>
+          <div class="col s6 lime"><span class="flow-text">World</span></div>
+          <div class="col s12 teal card-panel">This is a card</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript starts below -->  
+  <script
+			  src="https://code.jquery.com/jquery-3.0.0.slim.min.js"
+			  integrity="sha256-Rf4BadfyCtsvHmO89BUZcbYvNNvZvOT08ALfEzvCsD0="
+			  crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      var socket = io()
+      var heading = $('#main')
+      var a = 0
+      setInterval(function() {
+        heading.text('Rocket doom distract '+a.toString());
+        a++;
+      }, 1000);
+      $(".button-collapse").sideNav();
+    });
+  </script>
+
+</body>
+</html>
+

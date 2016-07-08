@@ -1,25 +1,33 @@
-var cool = require('cool-ascii-faces')
-var express = require('express');
-var app = express();
+let app = require('express')();
+let server = require('http').Server(app)
+let io = require('socket.io')(server);
 
-app.set('port', (process.env.PORT || 5000));
-
-app.use(express.static(__dirname + '/public'));
-
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
-app.get('/', function(request, response) {
-  response.render('pages/index');
+server.listen(5000, function() {
+  console.log('Created a server at port 5000');
 });
 
-app.get('/cool', function(request, response) {
-  response.send(cool());
+// Set port for listening
+//app.set('port',(process.env.PORT || 5000));
+
+// Defining test return
+app.get('/hello', function(req, resp) {
+  resp.send('<h1>Hello, World!</h1>');
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+// Define response for homepage
+app.get('/', function(req, resp) {
+  resp.sendFile(__dirname+'/index.html');
 });
 
+io.on('connection', function(socket) {
+  console.log('User has connected');
+  socket.on('disconnect', function() {
+    console.log('Disconnect by client'); 
+  });
+});
+
+ //Start listening of specified code
+//app.listen(2000, function() {
+  //console.log('listening on port: '+app.get('port'));
+//});
 
