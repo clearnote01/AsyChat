@@ -1,13 +1,10 @@
-let app = require('express')();
+var app = require('express')();
 let server = require('http').Server(app)
 let io = require('socket.io')(server);
 
-server.listen(5000, function() {
-  console.log('Created a server at port 5000');
-});
 
 // Set port for listening
-//app.set('port',(process.env.PORT || 5000));
+app.set('port',(process.env.PORT || 5000));
 
 // Defining test return
 app.get('/hello', function(req, resp) {
@@ -25,6 +22,11 @@ io.on('connection', function(socket) {
     console.log('Disconnect by client'); 
   });
 });
+
+server.listen(5000, function() {
+  console.log('Created a server at port 5000');
+});
+
 
  //Start listening of specified code
 //app.listen(2000, function() {
