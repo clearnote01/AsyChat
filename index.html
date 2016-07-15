@@ -35,7 +35,7 @@
   #msg-cont {
       position: relative;
       box-sizing: border-box;
-      height: 60vh;
+      height: 80vh;
   }
 
   form {
@@ -65,6 +65,9 @@
 
   .my-msg {
     padding: 1px;
+    font-family: Sans;
+    font-size: 0.8em;
+    color: red;
   }
 
   .my-left-nav {
@@ -73,22 +76,20 @@
 
 </style>
 
-<body>
+<body class="grey lighten-4">
   <div class="row">
 <!-- Left navigation bar -->
-    <div class="white-text flow-text z-depth-1 my-left-nav teal darken-3 col l2 s3">
+    <div class="white-text flow-text z-depth-2 my-left-nav teal darken-3 col l2 s3">
       <div class="">
-        here is left nav bar
-        <div class="divider"></div>
-        here is left nav bar
-        here is left nav bar
-        here is left nav bar
+      This will 
+      contain stuffs
+      <div class="divider"></div>
       </div>
     </div>
   
     <div class="col s9 l10">
 <!-- Top navigation bar -->
-      <nav class='white z-depth-0 container'>
+      <nav class='grey lighten-4 z-depth-0 container'>
         <div class="nav-wrapper ">
           <span class="brand-logo left teal-text ">AsynChat 
             <span class="my-light teal-text text-lighten-3">    | Made in NITH</small>  
@@ -97,13 +98,13 @@
       </nav>
 
 <!-- Small padding from heading to chat box (could be improved) -->
-      <div style="height:40px">
+      <div style="height:20px">
       </div>
 
 <!-- Chat box which contains everything -->
-      <div id="msg-cont" class="z-depth-1 container  lighten-2"> 
+      <div id="msg-cont" class="z-depth-0 container  lighten-2"> 
 <!-- Message box in Chat which has all the messages -->
-        <div class="my-msgs">
+        <div class="my-msgs  grey lighten-4">
           <ul> 
             <li class="my-msg">
               <span id="flow-text my-msg">
@@ -126,49 +127,16 @@
         </div>
         <div class="my-form z-depth-0">
           <div class="divider"></div>
-          <div class="row">
-                <!--<div class="col s2">-->
-                <!--<div class="col s9 m9">-->
-            <form action="" class=""> 
-                    <!--<div class="input-field">-->
-                  <div class="input-field col s8 my-form-bottom">
-                    <i class="prefix small material-icons">mode_edit</i>
-                    <input id="m" class="icon_prefix1 materialize-textarea my-msg " autocomplete="off" />
-                    <label for="m">Type text here</label>
-                    <!--</div>-->
-                  </div>
-            </form>
+          <form id="text" action="">
+            <div class="input-field">
+              <input id="text_msg" 
+                     type="text">
+              <label class="active" for="text_msg">Enter Text</label>
             </div>
-          </div>
+          </form>
         </div>
-              <!--<form id="my-form" class="my-form black-text teal lighten-5 " action="">-->
-                <!--<div class="my-form">-->
-                  <!--<input class="">-->
-                    <!--This contains the typed message-->
-                  <!--</input>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</form>-->
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <i class="material-icons prefix">mode_edit</i>
-          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-          <label for="icon_prefix2">First Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="input_text" type="text" length="10">
-          <label for="input_text">Input text</label>
-        </div>
-      </div>
-    </form>
   </div>
 
   <!-- Javascript starts below -->  
@@ -189,10 +157,14 @@
         heading.text('Rocket doom distract '+a.toString());
         a++;
       }, 1000);
+      $('#text').submit(function() {
+        socket.emit('chat message', $('#text_msg').val());
+        $('#text_msg').val('wallah!');
+        return false;
+      });
+      Materialize.updateTextFields();
     });
   </script>
-
-
 </body>
 </html>
 
