@@ -21,6 +21,10 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('Disconnect by client'); 
   });
+  socket.on('got-a-text', function(msg) {
+    console.log('Messgae: ' + msg);
+    io.emit('got-a-text', msg);
+  });
 });
 
 server.listen(app.get('port'), function() {

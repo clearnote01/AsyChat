@@ -22,7 +22,7 @@
 
   body {
     max-height: 150vh;
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 
   .my-nav {
@@ -60,14 +60,15 @@
 
   .my-msgs {
     padding: 3px;
-    height: 100%;
+    height: 80%;
+    overflow-y: auto; 
   }
 
   .my-msg {
     padding: 1px;
-    font-family: Sans;
+    font-family: Noto Sans;
     font-size: 0.8em;
-    color: red;
+    color: teal;
   }
 
   .my-left-nav {
@@ -105,24 +106,8 @@
       <div id="msg-cont" class="z-depth-0 container  lighten-2"> 
 <!-- Message box in Chat which has all the messages -->
         <div class="my-msgs  grey lighten-4">
-          <ul> 
-            <li class="my-msg">
-              <span id="flow-text my-msg">
-                Utkarsh: 
-                  It uses the dorem 
-              </span>
-            </li>
-            <li class="my-msg">
-              <span id="flow-text my-msg">
-                Utkarsh: 
-                  This is an example quotation that uses,
-                  This is an example quotation that uses,
-                  This is an example quotation that uses,
-                  the blockquote tag.
-                  the blockquote tag.
-                  the blockquote tag.
-                </span>
-            </li>
+          <ul id="msgs"> 
+            <li id="msg" class="my-msg flow-text">Have a lovely day!</li>
           </ul>
         </div>
         <div class="my-form z-depth-0">
@@ -158,9 +143,13 @@
         a++;
       }, 1000);
       $('#text').submit(function() {
-        socket.emit('chat message', $('#text_msg').val());
-        $('#text_msg').val('wallah!');
+        socket.emit('got-a-text', $('#text_msg').val());
+        $('#text_msg').val('');
         return false;
+      });
+      socket.on('got-a-text', function(msg) {
+        $('#msg').clone().text(msg).appendTo($('#msgs'));
+        $('.my-msgs').scrollTop($('#msgs')[0].scrollHeight);
       });
       Materialize.updateTextFields();
     });
