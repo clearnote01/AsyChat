@@ -25,6 +25,9 @@ io.on('connection', function(socket) {
     console.log('Messgae: ' + msg);
     io.emit('got-a-text', msg);
   });
+  socket.on('new-user', function(msg) {
+    console.log('New Nick: ' + msg);
+  });
 });
 
 server.listen(app.get('port'), function() {
