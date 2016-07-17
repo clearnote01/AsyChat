@@ -39,6 +39,7 @@ io.on('connection', function(socket) {
     if (disc_user !== undefined) {
       io.emit('a-user-disc', disc_user);
       console.log('DISC user '+disc_user);
+      users.splice(users.indexOf(disc_user),1);
     }
   });
   socket.on('got-a-text', function(msg) {
