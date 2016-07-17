@@ -16,8 +16,13 @@ app.get('/', function(req, resp) {
   resp.sendFile(__dirname+'/index.html');
 });
 
+users = [];
 io.on('connection', function(socket) {
   console.log('User has connected');
+  for(let i=0; i<users.length; i++) {
+    console.log(users);
+    socket.emit('new-user', users[i]);
+  }
   socket.on('disconnect', function() {
     console.log('Disconnect by client'); 
   });
@@ -27,6 +32,8 @@ io.on('connection', function(socket) {
   });
   socket.on('new-user', function(msg) {
     console.log('New Nick: ' + msg);
+    io.emit('new-user', msg);
+    users.push(msg);
   });
 });
 
