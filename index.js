@@ -17,17 +17,29 @@ app.get('/', function(req, resp) {
 });
 
 users = [];
+msgs = [];
+var msgs_length = 0;
+
 io.on('connection', function(socket) {
   console.log('User has connected');
   for(let i=0; i<users.length; i++) {
     console.log(users);
     socket.emit('new-user', users[i]);
   }
+  for(let j=0; j<msgs.length; j++) {
+    socket.emit('got-a-text', msgs[j]);
+  };
   socket.on('disconnect', function() {
     console.log('Disconnect by client'); 
   });
   socket.on('got-a-text', function(msg) {
     console.log('Messgae: ' + msg);
+    msgs.push(msg);
+    msgs_length += 1;
+    if (msgs_length > 200) {
+      msgs.shift();
+      msgs_length -= 1;
+    }
     io.emit('got-a-text', msg);
   });
   socket.on('new-user', function(msg) {
