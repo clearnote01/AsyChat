@@ -233,7 +233,11 @@
       socket.on('new-user', function(msg) {
          let mem_block = $('#a_mem').clone();
          console.log('Message ' + msg);
+         mem_block.attr('id',msg);
          mem_block.text(msg).appendTo($('#all_mems'));
+      });
+      socket.on('a-user-disc', function(msg) {
+        $('#'+msg).remove();
       });
       socket.on('got-a-text', function(msg) {
         json_msg = JSON.parse(msg);

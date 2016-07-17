@@ -19,9 +19,13 @@ app.get('/', function(req, resp) {
 users = [];
 msgs = [];
 var msgs_length = 0;
+let user_by_id = {};
+
+function isAlive() {
+}; 
 
 io.on('connection', function(socket) {
-  console.log('User has connected');
+  console.log('A user has connected '+socket.id);
   for(let i=0; i<users.length; i++) {
     console.log(users);
     socket.emit('new-user', users[i]);
@@ -30,7 +34,12 @@ io.on('connection', function(socket) {
     socket.emit('got-a-text', msgs[j]);
   };
   socket.on('disconnect', function() {
-    console.log('Disconnect by client'); 
+    console.log('Disconnect by client '+socket.id); 
+    let disc_user = user_by_id[socket.id];
+    if (disc_user !== undefined) {
+      io.emit('a-user-disc', disc_user);
+      console.log('DISC user '+disc_user);
+    }
   });
   socket.on('got-a-text', function(msg) {
     console.log('Messgae: ' + msg);
@@ -45,6 +54,7 @@ io.on('connection', function(socket) {
   socket.on('new-user', function(msg) {
     console.log('New Nick: ' + msg);
     io.emit('new-user', msg);
+    user_by_id[socket.id] = msg;
     users.push(msg);
   });
 });
